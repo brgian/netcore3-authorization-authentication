@@ -29,7 +29,7 @@ namespace NetCore.Template.BackOffice.Controllers
             return Ok(configAccessor.ApiInformation);
         }
 
-        [HttpGet("GenerateCertificate")]
+        [HttpGet("generate-certificate")]
         public ActionResult GenerateCertificate()
         {
             var provider = new RSACryptoServiceProvider(2048);

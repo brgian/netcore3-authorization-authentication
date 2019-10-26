@@ -7,7 +7,7 @@ using NetCore.Template.Services;
 namespace NetCore.Template.BackOffice.Controllers
 {
     [EnableCors("AllowAllOrigins")]
-    [Route("api/[Controller]")]
+    [Route("api/my-entity")]
     [ApiController]
     public class MyEntityController : Controller
     {

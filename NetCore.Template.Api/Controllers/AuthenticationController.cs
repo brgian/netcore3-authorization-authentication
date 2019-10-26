@@ -22,7 +22,7 @@ namespace NetCore.Template.Api.Controllers
             this.authenticationService = authenticationService;
         }
 
-        [HttpPost]
+        [HttpPost("validate-credentials")]
         public IActionResult ValidateCredentials([FromBody]LoginCredentials loginCredentials)
         {
             TokenResponse tokenResponse;
