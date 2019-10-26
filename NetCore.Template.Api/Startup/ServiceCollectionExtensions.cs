@@ -6,6 +6,7 @@ using NetCore.Template.Repositories.Implementation;
 using NetCore.Template.Services;
 using NetCore.Template.Services.Implementation;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
 
 namespace NetCore.Template.Api.Configuration
 {
@@ -15,6 +16,7 @@ namespace NetCore.Template.Api.Configuration
         {
             services.AddTransient<IMyEntityRepository, MyEntityRepository>();
             services.AddTransient<IMyEntityService, MyEntityService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSingleton<ConfigurationAccessor>();
@@ -27,6 +29,18 @@ namespace NetCore.Template.Api.Configuration
             services
             .AddSwaggerGen(c =>
             {
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                };
+
+                c.AddSecurityDefinition("Bearer", securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement { { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } }, new string[] { } } });
+
                 c.SwaggerDoc(configurationAccessor.ApiInformation.ApiVersion, new OpenApiInfo
                 {
                     Title = configurationAccessor.ApiInformation.Title,
@@ -43,7 +57,6 @@ namespace NetCore.Template.Api.Configuration
                     }
                 }
                 );
-                c.DescribeAllEnumsAsStrings();
             });
 
             return services;
