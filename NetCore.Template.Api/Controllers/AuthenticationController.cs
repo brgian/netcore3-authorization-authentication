@@ -25,9 +25,7 @@ namespace NetCore.Template.Api.Controllers
         [HttpPost("validate-credentials")]
         public IActionResult ValidateCredentials([FromBody]LoginCredentials loginCredentials)
         {
-            TokenResponse tokenResponse;
-
-            if (authenticationService.TryAuthenticate(loginCredentials, out tokenResponse))
+            if (authenticationService.TryAuthenticate(loginCredentials, out TokenResponse tokenResponse))
                 return Ok(tokenResponse);
 
             return Unauthorized();
