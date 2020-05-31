@@ -44,7 +44,7 @@ namespace NetCore.Template.Repositories.Implementation
             return query.FirstOrDefault(predicate);
         }
 
-        public IEnumerable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
             IQueryable<T> query = Context.Set<T>();
             
@@ -54,7 +54,7 @@ namespace NetCore.Template.Repositories.Implementation
             return query;
         }
 
-        public IEnumerable<T> Search(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
+        public IQueryable<T> Search(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null)
         {
             IQueryable<T> query = Context.Set<T>();
             
